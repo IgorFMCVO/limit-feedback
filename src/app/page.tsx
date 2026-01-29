@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Home, Star, Gift, MessageSquare } from 'lucide-react';
 import { supabase, submitRating, submitSurvey, submitFeedback, getStats } from '@/lib/supabase';
 import { SURVEY_QUESTIONS, FEEDBACK_CATEGORIES, ACADEMY_INFO, RATING_LABELS } from '@/lib/constants';
 import type { Professor, Stats } from '@/types';
@@ -731,34 +730,36 @@ export default function FeedbackApp() {
 
       {/* Bottom Nav */}
       {currentView !== 'thanks' && (
-        <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-gray-100 px-4 py-3 shadow-2xl">
+        <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-gray-100 px-4 py-3 shadow-2xl z-50">
           <div className="max-w-md mx-auto flex justify-around">
             <button
               onClick={() => setCurrentView('home')}
-              className={`flex flex-col items-center gap-1 py-1 px-4 rounded-xl transition-all ${currentView === 'home' ? 'bg-blue-50' : ''}`}
+              className={`flex flex-col items-center gap-1 py-2 px-5 rounded-xl transition-all ${currentView === 'home' ? 'bg-blue-50' : ''}`}
             >
-              <Home size={20} className={currentView === 'home' ? 'text-limit-blue' : 'text-gray-400'} />
+              <span className="text-xl">🏠</span>
               <span className={`text-xs font-medium ${currentView === 'home' ? 'text-limit-blue' : 'text-gray-400'}`}>Início</span>
             </button>
             <button
               onClick={() => setCurrentView('rate')}
-              className={`flex flex-col items-center gap-1 py-1 px-4 rounded-xl transition-all ${currentView === 'rate' ? 'bg-blue-50' : ''}`}
+              className={`flex flex-col items-center gap-1 py-2 px-5 rounded-xl transition-all ${currentView === 'rate' ? 'bg-blue-50' : ''}`}
             >
-              <Star size={20} className={currentView === 'rate' ? 'text-limit-blue' : 'text-gray-400'} />
+              <span className="text-xl">⭐</span>
               <span className={`text-xs font-medium ${currentView === 'rate' ? 'text-limit-blue' : 'text-gray-400'}`}>Avaliar</span>
             </button>
             <button
               onClick={() => setCurrentView('survey')}
-              className={`flex flex-col items-center gap-1 py-1 px-4 rounded-xl transition-all ${currentView === 'survey' ? 'bg-blue-50' : ''}`}
+              className={`flex flex-col items-center gap-1 py-2 px-5 rounded-xl transition-all ${currentView === 'survey' ? 'bg-blue-50' : ''}`}
             >
-              <Gift size={20} className={currentView === 'survey' ? 'text-limit-blue' : 'text-gray-400'} />
+              <span className="text-xl">🎁</span>
               <span className={`text-xs font-medium ${currentView === 'survey' ? 'text-limit-blue' : 'text-gray-400'}`}>Pesquisa</span>
             </button>
             <a
-              href={`https://wa.me/${ACADEMY_INFO.whatsapp}`}
-              className="flex flex-col items-center gap-1 py-1 px-4 rounded-xl"
+              href="https://wa.me/5538998665666"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center gap-1 py-2 px-5 rounded-xl"
             >
-              <MessageSquare size={20} className="text-green-500" />
+              <span className="text-xl">📱</span>
               <span className="text-xs font-medium text-green-500">WhatsApp</span>
             </a>
           </div>
