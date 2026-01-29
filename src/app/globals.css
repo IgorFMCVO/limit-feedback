@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --limit-blue: #004aad;
+  --limit-blue-light: #0a72eb;
+  --limit-blue-dark: #003080;
+  --limit-gold: #c4915c;
+  --limit-gold-dark: #8b5a2b;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Animações */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-ping {
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* Gradientes da marca */
+.bg-limit-gradient {
+  background: linear-gradient(135deg, var(--limit-blue) 0%, var(--limit-blue-dark) 100%);
+}
+
+.bg-limit-gradient-light {
+  background: linear-gradient(135deg, var(--limit-blue) 0%, var(--limit-blue-light) 100%);
+}
+
+.bg-gold-gradient {
+  background: linear-gradient(135deg, var(--limit-gold-dark) 0%, var(--limit-gold) 100%);
+}
+
+.text-gold-gradient {
+  background: linear-gradient(135deg, var(--limit-gold) 0%, var(--limit-gold-dark) 50%, var(--limit-gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Star rating color */
+.star-active {
+  color: var(--limit-gold);
+  text-shadow: 0 0 10px rgba(196, 145, 92, 0.5);
+}
+
+.star-inactive {
+  color: #334155;
+}
