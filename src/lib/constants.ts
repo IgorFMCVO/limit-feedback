@@ -27,8 +27,8 @@ export const ACADEMY_INFO = {
   name: 'LIMIT FITNESS',
   slogan: 'Treine até o seu limite!',
   address: 'Av. Othon Bezerra de Melo, 2025 - Centro, Curvelo-MG',
-  phone: '(38) 99866-5666',
-  whatsapp: '5538998665666',
+  phone: '(38) 9 9738-3905',
+  whatsapp: '5538997383905',
   instagram: 'academialimitfitness',
   email: 'limitcurvelo@gmail.com',
 };

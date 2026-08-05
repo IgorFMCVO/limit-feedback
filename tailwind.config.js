@@ -18,6 +18,8 @@ module.exports = {
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['Oswald', 'Inter', 'sans-serif'],
+        mono: ['"Space Mono"', 'monospace'],
       },
     },
   },

@@ -11,7 +11,7 @@ export default function FeedbackApp() {
   // States
   const [currentView, setCurrentView] = useState<View>('home');
   const [professors, setProfessors] = useState<Professor[]>([]);
-  const [stats, setStats] = useState<Stats>({ average_rating: 4.6, total_feedbacks: 465, satisfaction_rate: 98 });
+  const [stats, setStats] = useState<Stats>({ average_rating: 0, total_feedbacks: 0, satisfaction_rate: 0 });
   const [loading, setLoading] = useState(true);
   
   // Form states
@@ -47,15 +47,7 @@ export default function FeedbackApp() {
         setStats(statsData);
       } catch (error) {
         console.error('Erro ao carregar dados:', error);
-        // Usar dados padrão em caso de erro
-        setProfessors([
-          { id: '1', name: 'Prof. Carlos Silva', specialty: 'Musculação', avatar: '💪', rating: 4.8, reviews_count: 124 },
-          { id: '2', name: 'Prof. Ana Santos', specialty: 'Funcional', avatar: '🏃‍♀️', rating: 4.9, reviews_count: 98 },
-          { id: '3', name: 'Prof. Ricardo Lima', specialty: 'Personal Trainer', avatar: '🎯', rating: 4.7, reviews_count: 156 },
-          { id: '4', name: 'Prof. Marina Costa', specialty: 'Spinning', avatar: '🚴', rating: 4.9, reviews_count: 87 },
-          { id: '5', name: 'Prof. João Pedro', specialty: 'Crossfit', avatar: '🔥', rating: 4.6, reviews_count: 72 },
-          { id: '6', name: 'Recepção', specialty: 'Atendimento Geral', avatar: '👋', rating: 4.8, reviews_count: 203 },
-        ]);
+        // Sem fallback fictício: lista vazia mostra estado honesto na tela de avaliação
       } finally {
         setLoading(false);
       }
@@ -68,7 +60,12 @@ export default function FeedbackApp() {
     if (!selectedProfessor || rating === 0) return;
     
     setSubmitted(true);
+    const throttleKey = `rated_${selectedProfessor.id}_${new Date().toISOString().slice(0,10)}`;
+    let alreadyRated = false;
+    try { alreadyRated = !!localStorage.getItem(throttleKey); } catch {}
+    if (alreadyRated) { setTimeout(() => setCurrentView('thanks'), 600); return; }
     try {
+      try { localStorage.setItem(throttleKey, '1'); } catch {}
       await submitRating({
         professor_id: selectedProfessor.id,
         rating,
@@ -176,7 +173,7 @@ export default function FeedbackApp() {
             alt="LIMIT FITNESS" 
             className="w-44 h-auto mx-auto mb-1 drop-shadow-2xl"
           />
-          <h1 className="text-2xl font-black text-white mb-1 tracking-tight">
+          <h1 className="font-display text-3xl font-bold text-white mb-1 tracking-wide uppercase">
             SUA VOZ<br/>
             <span className="text-limit-gold">TRANSFORMA</span>
           </h1>
@@ -243,7 +240,8 @@ export default function FeedbackApp() {
         </div>
       </div>
 
-      {/* Stats */}
+      {/* Stats (só com dados reais) */}
+      {stats.total_feedbacks > 0 && (
       <div className="grid grid-cols-3 gap-3">
         <div className="bg-white rounded-xl p-4 text-center shadow-md">
           <div className="text-2xl font-black text-limit-blue">{stats.average_rating}</div>
@@ -263,6 +261,7 @@ export default function FeedbackApp() {
           <div className="text-xs text-gray-500 mt-2">Satisfação</div>
         </div>
       </div>
+      )}
 
       {/* Social */}
       <div className="bg-white rounded-2xl p-5 shadow-md">
@@ -293,10 +292,17 @@ export default function FeedbackApp() {
           <span className="text-gray-600">←</span>
         </button>
         <div>
-          <h2 className="text-xl font-bold text-gray-800">Avaliar Atendimento</h2>
+          <h2 className="font-display text-xl font-semibold uppercase tracking-wide text-gray-800">Avaliar Atendimento</h2>
           <p className="text-gray-500 text-sm">Sua avaliação premia nossos profissionais</p>
         </div>
       </div>
+
+      {professors.length === 0 && !loading && (
+        <div className="bg-white rounded-2xl p-6 text-center shadow-md">
+          <p className="text-gray-600 font-medium">Estamos preparando a lista de profissionais.</p>
+          <p className="text-gray-400 text-sm mt-1">Volte em instantes — ou fale com a recepção.</p>
+        </div>
+      )}
 
       <div className="space-y-3">
         <label className="text-gray-600 text-sm font-semibold">Quem você deseja avaliar?</label>
@@ -394,7 +400,7 @@ export default function FeedbackApp() {
             <span className="text-gray-600">←</span>
           </button>
           <div className="flex-1">
-            <h2 className="text-xl font-bold text-gray-800">Pesquisa Mensal</h2>
+            <h2 className="font-display text-xl font-semibold uppercase tracking-wide text-gray-800">Pesquisa Mensal</h2>
             <p className="text-gray-500 text-sm">Complete e concorra a prêmios!</p>
           </div>
         </div>
@@ -544,7 +550,7 @@ export default function FeedbackApp() {
           <span className="text-gray-600">←</span>
         </button>
         <div>
-          <h2 className="text-xl font-bold text-gray-800">
+          <h2 className="font-display text-xl font-semibold uppercase tracking-wide text-gray-800">
             {feedbackType === 'suggestion' ? 'Enviar Sugestão' : 'Registrar Reclamação'}
           </h2>
           <p className="text-gray-500 text-sm">
