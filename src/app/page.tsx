@@ -4,6 +4,14 @@ import { useState, useEffect } from 'react';
 import { supabase, submitRating, submitSurvey, submitFeedback, getStats } from '@/lib/supabase';
 import { SURVEY_QUESTIONS, FEEDBACK_CATEGORIES, ACADEMY_INFO, RATING_LABELS } from '@/lib/constants';
 import type { Professor, Stats } from '@/types';
+import { Star, Gift, Lightbulb, Bell, Trophy, Home, Instagram } from 'lucide-react';
+
+const WhatsAppIcon = ({ className = 'w-5 h-5' }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.297-.497.1-.198.05-.371-.025-.52-.074-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.172-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.511-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.884 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+);
+
 
 type View = 'home' | 'rate' | 'survey' | 'feedback' | 'thanks';
 
@@ -189,7 +197,7 @@ export default function FeedbackApp() {
           onClick={() => setCurrentView('rate')}
           className="group relative overflow-hidden bg-white rounded-2xl p-5 text-left transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl border-2 border-transparent hover:border-blue-100"
         >
-          <span className="text-3xl mb-3 block">⭐</span>
+          <Star className="w-8 h-8 mb-3 text-yellow-500 fill-yellow-400" />
           <h3 className="font-bold text-lg text-limit-blue">Avaliar</h3>
           <p className="text-gray-500 text-xs mt-1">Professor ou atendimento</p>
         </button>
@@ -199,7 +207,7 @@ export default function FeedbackApp() {
           className="group relative overflow-hidden bg-white rounded-2xl p-5 text-left transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl border-2 border-transparent hover:border-emerald-100"
         >
           <div className="absolute top-3 right-3 bg-emerald-500 text-white text-[10px] px-2 py-0.5 rounded-full font-bold">PRÊMIOS</div>
-          <span className="text-3xl mb-3 block">🎁</span>
+          <Gift className="w-8 h-8 mb-3 text-emerald-500" />
           <h3 className="text-emerald-600 font-bold text-lg">Pesquisa</h3>
           <p className="text-gray-500 text-xs mt-1">Concorra a prêmios!</p>
         </button>
@@ -208,7 +216,7 @@ export default function FeedbackApp() {
           onClick={() => { setFeedbackType('suggestion'); setCurrentView('feedback'); }}
           className="group relative overflow-hidden bg-white rounded-2xl p-5 text-left transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl border-2 border-transparent hover:border-amber-100"
         >
-          <span className="text-3xl mb-3 block">💡</span>
+          <Lightbulb className="w-8 h-8 mb-3 text-amber-500" />
           <h3 className="font-bold text-lg text-limit-gold-dark">Sugestão</h3>
           <p className="text-gray-500 text-xs mt-1">Envie suas ideias</p>
         </button>
@@ -217,7 +225,7 @@ export default function FeedbackApp() {
           onClick={() => { setFeedbackType('complaint'); setCurrentView('feedback'); }}
           className="group relative overflow-hidden bg-white rounded-2xl p-5 text-left transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl border-2 border-transparent hover:border-red-100"
         >
-          <span className="text-3xl mb-3 block">🔔</span>
+          <Bell className="w-8 h-8 mb-3 text-red-500" />
           <h3 className="text-red-600 font-bold text-lg">Reclamação</h3>
           <p className="text-gray-500 text-xs mt-1">Reporte problemas</p>
         </button>
@@ -226,10 +234,10 @@ export default function FeedbackApp() {
       {/* Promo Banner */}
       <div className="relative overflow-hidden rounded-2xl p-5 bg-limit-gradient-light">
         <div className="flex items-center gap-4 relative z-10">
-          <div className="w-14 h-14 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center text-2xl">🏆</div>
+          <div className="w-14 h-14 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center"><Trophy className="w-7 h-7 text-white" /></div>
           <div className="flex-1">
             <h3 className="text-white font-bold text-lg">Responda e Ganhe!</h3>
-            <p className="text-blue-100 text-sm">Complete a pesquisa e concorra a <strong className="text-white">1 mês grátis</strong></p>
+            <p className="text-blue-100 text-sm">Complete a pesquisa e concorra a <strong className="text-white">1 mês de academia grátis</strong></p>
           </div>
           <button 
             onClick={() => setCurrentView('survey')}
@@ -269,14 +277,11 @@ export default function FeedbackApp() {
         <div className="flex justify-center gap-4">
           <a href={`https://instagram.com/${ACADEMY_INFO.instagram}`} target="_blank" rel="noopener noreferrer" 
             className="w-12 h-12 bg-gradient-to-br from-pink-500 via-red-500 to-yellow-500 rounded-xl flex items-center justify-center text-white text-xl hover:scale-110 transition-transform shadow-lg">
-            📸
+            <Instagram className="w-6 h-6" />
           </a>
           <a href={`https://wa.me/${ACADEMY_INFO.whatsapp}`} target="_blank" rel="noopener noreferrer"
             className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center text-white text-xl hover:scale-110 transition-transform shadow-lg">
-            📱
-          </a>
-          <a href="#" className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center text-white text-xl hover:scale-110 transition-transform shadow-lg">
-            👍
+            <WhatsAppIcon className="w-6 h-6" />
           </a>
         </div>
         <p className="text-center text-gray-400 text-xs mt-3">@{ACADEMY_INFO.instagram}</p>
@@ -416,7 +421,7 @@ export default function FeedbackApp() {
         </div>
 
         <div className="relative overflow-hidden rounded-xl p-4 text-center bg-limit-gradient">
-          <span className="text-3xl">🎁</span>
+          <Gift className="w-8 h-8 text-emerald-500" />
           <p className="text-white font-bold mt-2">Concorra a 1 Mês Grátis!</p>
           <p className="text-blue-200 text-xs">+ Brindes exclusivos para participantes</p>
         </div>
@@ -654,7 +659,7 @@ export default function FeedbackApp() {
       
       <div className="rounded-2xl p-5 max-w-xs w-full bg-blue-50 border-2 border-blue-100">
         <div className="flex items-center justify-center gap-3">
-          <span className="text-3xl">🏆</span>
+          <Trophy className="w-8 h-8 text-limit-blue" />
           <div className="text-left">
             <p className="font-bold text-limit-blue">+15 Pontos</p>
             <p className="text-gray-500 text-xs">Programa #teamLIMIT</p>
@@ -742,30 +747,30 @@ export default function FeedbackApp() {
               onClick={() => setCurrentView('home')}
               className={`flex flex-col items-center gap-1 py-2 px-5 rounded-xl transition-all ${currentView === 'home' ? 'bg-blue-50' : ''}`}
             >
-              <span className="text-xl">🏠</span>
+              <Home className="w-5 h-5" />
               <span className={`text-xs font-medium ${currentView === 'home' ? 'text-limit-blue' : 'text-gray-400'}`}>Início</span>
             </button>
             <button
               onClick={() => setCurrentView('rate')}
               className={`flex flex-col items-center gap-1 py-2 px-5 rounded-xl transition-all ${currentView === 'rate' ? 'bg-blue-50' : ''}`}
             >
-              <span className="text-xl">⭐</span>
+              <Star className="w-5 h-5" />
               <span className={`text-xs font-medium ${currentView === 'rate' ? 'text-limit-blue' : 'text-gray-400'}`}>Avaliar</span>
             </button>
             <button
               onClick={() => setCurrentView('survey')}
               className={`flex flex-col items-center gap-1 py-2 px-5 rounded-xl transition-all ${currentView === 'survey' ? 'bg-blue-50' : ''}`}
             >
-              <span className="text-xl">🎁</span>
+              <Gift className="w-5 h-5" />
               <span className={`text-xs font-medium ${currentView === 'survey' ? 'text-limit-blue' : 'text-gray-400'}`}>Pesquisa</span>
             </button>
             <a
-              href="https://wa.me/5538998665666"
+              href={`https://wa.me/${ACADEMY_INFO.whatsapp}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex flex-col items-center gap-1 py-2 px-5 rounded-xl"
             >
-              <span className="text-xl">📱</span>
+              <WhatsAppIcon className="w-5 h-5 text-green-500" />
               <span className="text-xs font-medium text-green-500">WhatsApp</span>
             </a>
           </div>
