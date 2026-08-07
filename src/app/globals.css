@@ -115,3 +115,86 @@ body {
 .star-inactive {
   color: #334155;
 }
+
+/* =========================================================
+   SUA VOZ · LIMIT — DESKTOP V7 REFINADO INTEGRADO
+   Abaixo de 1024px nenhuma destas regras é aplicada.
+   ========================================================= */
+@media (min-width:1024px) {
+  :root { --sv-accent:#2E74F0; --sv-accent-2:#B06A45; --sv-dark:#10295B; --sv-soft:#F2F6FB; --sv-line:rgba(148,163,184,.18); }
+  body { background:radial-gradient(circle at 8% 8%,color-mix(in srgb,var(--sv-accent) 7%,transparent),transparent 25%),linear-gradient(180deg,var(--sv-soft),#eef3f8); }
+  div.min-h-screen > div.relative.z-10.max-w-md { max-width:860px !important; padding:12px 17px 70px !important; }
+  div.min-h-screen > div.relative.z-10.max-w-md > div.flex.items-center.justify-between.mb-6 { min-height:52px; padding:7px 13px; border-radius:18px; background:rgba(255,255,255,.88); border:1px solid var(--sv-line); box-shadow:0 10px 28px rgba(15,23,42,.07); backdrop-filter:blur(15px); margin-bottom:12px !important; }
+  div.min-h-screen > div.relative.z-10.max-w-md > div.flex.items-center.justify-between.mb-6 img { width:102px !important; height:38px !important; padding:0 !important; background:transparent !important; border:0 !important; box-shadow:none !important; object-fit:contain; filter:drop-shadow(0 4px 12px rgba(0,0,0,.07)); }
+  div.min-h-screen > div.relative.z-10.max-w-md > div.flex.items-center.justify-between.mb-6 p { font-size:11px !important; line-height:1.2 !important; }
+
+  /* HOME: volta ao desenho vertical. Hero e 4 ações em cima; premiação atravessa toda a largura. */
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) { display:grid; grid-template-columns:1fr 1fr; gap:10px 12px !important; align-items:stretch; }
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > * { margin-top:0 !important; }
+
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.relative.overflow-hidden.rounded-3xl { grid-column:1; height:430px; min-height:430px; padding:22px 24px !important; border-radius:24px !important; background:radial-gradient(circle at 83% 18%,rgba(255,255,255,.14),transparent 24%),radial-gradient(circle at 12% 92%,color-mix(in srgb,var(--sv-accent-2) 16%,transparent),transparent 24%),linear-gradient(145deg,var(--sv-dark),var(--sv-accent)) !important; box-shadow:0 16px 38px rgba(15,23,42,.09),0 16px 34px color-mix(in srgb,var(--sv-accent) 14%,transparent); }
+  /* Logo menor + respiro real antes do título. */
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.relative.overflow-hidden.rounded-3xl img { width:165px !important; max-height:62px !important; margin:34px auto 42px !important; padding:0 !important; background:transparent !important; border:0 !important; box-shadow:none !important; object-fit:contain; filter:drop-shadow(0 8px 20px rgba(0,0,0,.22)); }
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.relative.overflow-hidden.rounded-3xl h1 { font-size:35px !important; line-height:1.04 !important; margin:0 0 14px !important; }
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.relative.overflow-hidden.rounded-3xl p { font-size:12px !important; line-height:1.55 !important; max-width:350px; margin-left:auto !important; margin-right:auto !important; }
+
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.grid.grid-cols-2.gap-3 { grid-column:2; height:430px; gap:10px !important; }
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.grid.grid-cols-2.gap-3 > button { min-height:0 !important; padding:18px 16px 15px !important; border-radius:19px !important; box-shadow:0 12px 30px rgba(15,23,42,.075); border:1px solid rgba(15,23,42,.055) !important; }
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.grid.grid-cols-2.gap-3 > button > svg { width:20px !important; height:20px !important; margin-bottom:12px !important; padding:10px !important; box-sizing:content-box; border-radius:12px; background:#f5f8fe; }
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.grid.grid-cols-2.gap-3 h3 { font-size:21px !important; line-height:1 !important; }
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.grid.grid-cols-2.gap-3 p { font-size:10.5px !important; line-height:1.42 !important; margin-top:7px !important; }
+
+  /* Premiação full-width: une as duas colunas e evita qualquer vazio lateral. */
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.relative.overflow-hidden.rounded-2xl:not(.bg-white) { grid-column:1 / -1; min-height:82px; padding:13px 15px !important; border-radius:20px !important; background:linear-gradient(135deg,var(--sv-accent),color-mix(in srgb,var(--sv-accent) 75%,#0A72EB)) !important; box-shadow:0 14px 34px color-mix(in srgb,var(--sv-accent) 20%,rgba(15,23,42,.08)); }
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.relative.overflow-hidden.rounded-2xl:not(.bg-white) > div.flex { display:grid !important; grid-template-columns:44px 1fr auto; gap:12px !important; align-items:center; }
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.relative.overflow-hidden.rounded-2xl:not(.bg-white) > div.flex > div:first-child { width:44px !important; height:44px !important; border-radius:12px !important; }
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.relative.overflow-hidden.rounded-2xl:not(.bg-white) h3 { font-size:18px !important; line-height:1 !important; }
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.relative.overflow-hidden.rounded-2xl:not(.bg-white) p { font-size:9.8px !important; line-height:1.35 !important; }
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.relative.overflow-hidden.rounded-2xl:not(.bg-white) button { min-width:108px; height:38px; padding:0 16px !important; border-radius:11px !important; font-size:10px !important; }
+
+  /* Stats e comunidade voltam a formar uma linha simples de duas colunas. */
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.grid.grid-cols-3.gap-3 { grid-column:1; min-height:108px; gap:7px !important; }
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.grid.grid-cols-3.gap-3 > div { min-height:66px !important; padding:10px !important; border-radius:13px !important; box-shadow:0 7px 18px rgba(15,23,42,.045); }
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.grid.grid-cols-3.gap-3 .text-2xl { font-size:18px !important; }
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.grid.grid-cols-3.gap-3 .text-xs { font-size:8px !important; }
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.bg-white.rounded-2xl.p-5.shadow-md { grid-column:2; min-height:108px; padding:14px !important; border-radius:20px !important; box-shadow:0 10px 24px rgba(15,23,42,.06); }
+  div.space-y-5.animate-fadeIn:not(:has(> div.grid.grid-cols-3.gap-3)):has(> div.relative.overflow-hidden.rounded-3xl) > div.bg-white.rounded-2xl.p-5.shadow-md { grid-column:1 / -1; }
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.bg-white.rounded-2xl.p-5.shadow-md > p:first-child { margin-bottom:9px !important; font-size:9px !important; }
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.bg-white.rounded-2xl.p-5.shadow-md a { width:34px !important; height:34px !important; border-radius:10px !important; }
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.bg-white.rounded-2xl.p-5.shadow-md a svg { width:17px !important; height:17px !important; }
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.bg-white.rounded-2xl.p-5.shadow-md > p:last-child { margin-top:8px !important; font-size:9px !important; }
+
+  div.min-h-screen > div.fixed.bottom-0.left-0.right-0 { left:50% !important; right:auto !important; transform:translateX(-50%); width:min(480px,calc(100vw - 34px)) !important; bottom:10px !important; padding:5px 7px !important; border-radius:16px !important; background:rgba(255,255,255,.94) !important; border:1px solid var(--sv-line) !important; box-shadow:0 12px 32px rgba(15,23,42,.14) !important; }
+  div.min-h-screen > div.fixed.bottom-0.left-0.right-0 button, div.min-h-screen > div.fixed.bottom-0.left-0.right-0 a { min-width:82px; padding:5px 6px !important; font-size:9px !important; }
+  div.min-h-screen > div.fixed.bottom-0.left-0.right-0 svg { width:15px !important; height:15px !important; }
+
+  /* V7 — Contato e comunidade: transforma os dois ícones isolados em canais compactos e legíveis. */
+    div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.bg-white.rounded-2xl.p-5.shadow-md { overflow:hidden; }
+    div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.bg-white.rounded-2xl.p-5.shadow-md > p:first-child { text-align:left !important; margin:0 0 10px !important; color:#122033 !important; font-family:Oswald,Inter,sans-serif !important; font-size:17px !important; font-weight:700 !important; letter-spacing:0 !important; text-transform:uppercase !important; }
+    div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.bg-white.rounded-2xl.p-5.shadow-md > div.flex { display:grid !important; grid-template-columns:1fr 1fr !important; gap:7px !important; }
+    div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.bg-white.rounded-2xl.p-5.shadow-md > div.flex > a { width:100% !important; height:58px !important; display:grid !important; grid-template-columns:32px 1fr !important; align-items:center !important; justify-items:start !important; gap:8px !important; padding:8px !important; border-radius:13px !important; background:#fff !important; border:1px solid rgba(15,23,42,.05) !important; box-shadow:0 7px 18px rgba(15,23,42,.045) !important; position:relative; color:#263247 !important; }
+    div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.bg-white.rounded-2xl.p-5.shadow-md > div.flex > a::after { display:block; font:700 9px/1.1 Inter,sans-serif; color:#263247; white-space:nowrap; }
+    div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.bg-white.rounded-2xl.p-5.shadow-md > div.flex > a:first-child::after { content:"Instagram  ·  @academialimitfitness"; }
+    div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.bg-white.rounded-2xl.p-5.shadow-md > div.flex > a:nth-child(2)::after { content:"WhatsApp  ·  Falar com a equipe"; }
+    div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.bg-white.rounded-2xl.p-5.shadow-md > p:last-child { display:none !important; }
+
+  /* Painel de indicadores no desktop. */
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.grid.grid-cols-3.gap-3 { position:relative; background:rgba(255,255,255,.78); padding:40px 14px 14px !important; border-radius:20px; box-shadow:0 10px 24px rgba(15,23,42,.06); }
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.grid.grid-cols-3.gap-3::before { content:"VISÃO GERAL"; position:absolute; left:14px; top:12px; font:700 17px/1 Oswald,Inter,sans-serif; color:#122033; }
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.grid.grid-cols-3.gap-3::after { content:"Indicadores do sistema"; position:absolute; right:14px; top:14px; font:500 8px/1 Inter,sans-serif; color:#64748b; }
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.bg-white.rounded-2xl.p-5.shadow-md > p:first-child { display:flex !important; align-items:center; justify-content:space-between; }
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.bg-white.rounded-2xl.p-5.shadow-md > p:first-child::after { content:"Escolha o canal"; font:500 8px/1 Inter,sans-serif; color:#64748b; text-transform:none; }
+  /* Ícones dos canais: mantém o card branco e devolve força visual ao Instagram/WhatsApp. */
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.bg-white.rounded-2xl.p-5.shadow-md > div.flex > a svg { width:18px !important; height:18px !important; padding:7px !important; box-sizing:content-box; border-radius:9px !important; color:#fff !important; }
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.bg-white.rounded-2xl.p-5.shadow-md > div.flex > a:first-child svg { background:linear-gradient(135deg,#833AB4 0%,#FD1D1D 52%,#FCAF45 100%) !important; }
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.bg-white.rounded-2xl.p-5.shadow-md > div.flex > a:nth-child(2) svg { background:linear-gradient(135deg,#25D366,#16A34A) !important; }
+
+}
+
+@media (min-width:1024px) and (max-height:730px) {
+  div.min-h-screen > div.relative.z-10.max-w-md { padding-top:8px !important; padding-bottom:60px !important; }
+  div.min-h-screen > div.relative.z-10.max-w-md > div.flex.items-center.justify-between.mb-6 { min-height:48px; margin-bottom:9px !important; }
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.relative.overflow-hidden.rounded-3xl,
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.grid.grid-cols-2.gap-3 { height:402px; min-height:402px; }
+  div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.relative.overflow-hidden.rounded-3xl img { margin-top:25px !important; margin-bottom:32px !important; }
+}

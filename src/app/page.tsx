@@ -186,7 +186,8 @@ export default function FeedbackApp() {
             <span className="text-limit-gold">TRANSFORMA</span>
           </h1>
           <p className="text-blue-100 text-sm opacity-90">
-            Ajude-nos a construir a melhor experiência fitness
+            <span className="lg:hidden">Ajude-nos a construir a melhor experiência fitness</span>
+            <span className="hidden lg:inline">Avalie o atendimento, participe das pesquisas, envie sugestões ou relate falhas. Sua experiência ajuda a transformar a academia.</span>
           </p>
         </div>
       </div>
@@ -199,7 +200,7 @@ export default function FeedbackApp() {
         >
           <Star className="w-8 h-8 mb-3 text-yellow-500 fill-yellow-400" />
           <h3 className="font-bold text-lg text-limit-blue">Avaliar</h3>
-          <p className="text-gray-500 text-xs mt-1">Professor ou atendimento</p>
+          <p className="text-gray-500 text-xs mt-1"><span className="lg:hidden">Professor ou atendimento</span><span className="hidden lg:inline">Dê sua nota ao professor ou ao atendimento.</span></p>
         </button>
 
         <button
@@ -209,7 +210,7 @@ export default function FeedbackApp() {
           <div className="absolute top-3 right-3 bg-emerald-500 text-white text-[10px] px-2 py-0.5 rounded-full font-bold">PRÊMIOS</div>
           <Gift className="w-8 h-8 mb-3 text-emerald-500" />
           <h3 className="text-emerald-600 font-bold text-lg">Pesquisa</h3>
-          <p className="text-gray-500 text-xs mt-1">Concorra a prêmios!</p>
+          <p className="text-gray-500 text-xs mt-1"><span className="lg:hidden">Concorra a prêmios!</span><span className="hidden lg:inline">Participe das pesquisas e das campanhas vigentes.</span></p>
         </button>
 
         <button
@@ -218,7 +219,7 @@ export default function FeedbackApp() {
         >
           <Lightbulb className="w-8 h-8 mb-3 text-amber-500" />
           <h3 className="font-bold text-lg text-limit-gold-dark">Sugestão</h3>
-          <p className="text-gray-500 text-xs mt-1">Envie suas ideias</p>
+          <p className="text-gray-500 text-xs mt-1"><span className="lg:hidden">Envie suas ideias</span><span className="hidden lg:inline">Envie ideias para melhorar sua experiência.</span></p>
         </button>
 
         <button
@@ -227,7 +228,7 @@ export default function FeedbackApp() {
         >
           <Bell className="w-8 h-8 mb-3 text-red-500" />
           <h3 className="text-red-600 font-bold text-lg">Reclamação</h3>
-          <p className="text-gray-500 text-xs mt-1">Reporte problemas</p>
+          <p className="text-gray-500 text-xs mt-1"><span className="lg:hidden">Reporte problemas</span><span className="hidden lg:inline">Relate falhas para nossa equipe acompanhar.</span></p>
         </button>
       </div>
 
@@ -273,7 +274,7 @@ export default function FeedbackApp() {
 
       {/* Social */}
       <div className="bg-white rounded-2xl p-5 shadow-md">
-        <p className="text-gray-400 text-xs uppercase tracking-widest text-center mb-4 font-semibold">Siga a LIMIT</p>
+        <p className="text-gray-400 text-xs uppercase tracking-widest text-center mb-4 font-semibold"><span className="lg:hidden">Siga a LIMIT</span><span className="hidden lg:inline">Contato e comunidade</span></p>
         <div className="flex justify-center gap-4">
           <a href={`https://instagram.com/${ACADEMY_INFO.instagram}`} target="_blank" rel="noopener noreferrer" 
             className="w-12 h-12 bg-gradient-to-br from-pink-500 via-red-500 to-yellow-500 rounded-xl flex items-center justify-center text-white text-xl hover:scale-110 transition-transform shadow-lg">

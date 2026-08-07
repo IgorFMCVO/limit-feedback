@@ -1,0 +1,7 @@
+SUA VOZ LIMIT — INTEGRAÇÃO FINAL
+Versão desktop: V7 Refinado
+Mobile: base original preservada abaixo de 1024px
+Desktop: regras adicionais a partir de 1024px
+Build Vercel: script "vercel-build": "next build" adicionado
+Supabase: lógica original preservada
+Arquivos locais sensíveis: .env.local e .vercel NÃO incluídos
