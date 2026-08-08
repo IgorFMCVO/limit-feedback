@@ -198,3 +198,61 @@ body {
   div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.grid.grid-cols-2.gap-3 { height:402px; min-height:402px; }
   div.space-y-5.animate-fadeIn:has(> div.relative.overflow-hidden.rounded-3xl) > div.relative.overflow-hidden.rounded-3xl img { margin-top:28px !important; margin-bottom:42px !important; }
 }
+
+/* =========================================================
+   SUA VOZ · LIMIT — ÁREA ADMINISTRATIVA / RELATÓRIO
+   Identidade premium + impressão executiva
+   ========================================================= */
+.admin-print-report {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm 11mm 13mm;
+  }
+
+  html, body {
+    background: #fff !important;
+    color: #0f172a !important;
+  }
+
+  body {
+    min-width: 0 !important;
+  }
+
+  .admin-shell-header,
+  .print\:hidden {
+    display: none !important;
+  }
+
+  .admin-print-report {
+    width: 100% !important;
+    max-width: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: #fff !important;
+  }
+
+  .admin-print-report .report-cover,
+  .admin-print-report .report-section,
+  .admin-print-report article,
+  .admin-print-report table,
+  .admin-print-report tr {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .admin-print-report .report-page-break {
+    break-before: page;
+    page-break-before: always;
+    padding-top: 2mm;
+  }
+
+  .admin-print-report a {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
+}
