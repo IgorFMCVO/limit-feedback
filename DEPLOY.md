@@ -12,3 +12,17 @@ Projeto Next.js completo com desktop V7 Refinado integrado.
 O script `vercel-build` já existe no package.json para compatibilidade com o Build Command do projeto Vercel.
 
 As variáveis `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY` devem permanecer configuradas no projeto Vercel.
+
+
+## Painel administrativo
+
+Acesso oculto em `/admin`.
+
+Variáveis obrigatórias adicionais:
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `ADMIN_PASSWORD`
+
+Páginas criadas:
+- `/admin` → dashboard geral semanal
+- `/admin/relatorio` → relatório semanal imprimível
+- `/admin/login` → acesso por senha

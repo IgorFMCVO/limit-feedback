@@ -170,3 +170,17 @@ Para visualizar os feedbacks, você pode:
 Desenvolvido com ❤️ para **LIMIT FITNESS** - Curvelo/MG
 
 *"Treine até o seu LIMITE!"* 💪
+
+
+## Painel administrativo
+
+Acesso oculto em `/admin`.
+
+Variáveis obrigatórias adicionais:
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `ADMIN_PASSWORD`
+
+Páginas criadas:
+- `/admin` → dashboard geral semanal
+- `/admin/relatorio` → relatório semanal imprimível
+- `/admin/login` → acesso por senha
