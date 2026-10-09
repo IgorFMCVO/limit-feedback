@@ -32,7 +32,9 @@ export default function FeedbackApp() {
   const [userPhone, setUserPhone] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [isAnonymous, setIsAnonymous] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submissionError, setSubmissionError] = useState<{ view: View; message: string } | null>(null);
+  const [loadError, setLoadError] = useState(false);
   const [surveyAnswers, setSurveyAnswers] = useState<Record<string, number | string>>({});
   const [feedbackType, setFeedbackType] = useState<'suggestion' | 'complaint'>('suggestion');
   const [acceptTerms, setAcceptTerms] = useState(false);
@@ -42,20 +44,20 @@ export default function FeedbackApp() {
     async function loadData() {
       try {
         // Buscar professores
-        const { data: profs } = await supabase
+        const { data: profs, error: professorsError } = await supabase
           .from('professors')
           .select('*')
           .eq('active', true)
           .order('name');
         
-        if (profs) setProfessors(profs);
-        
-        // Buscar estatísticas
-        const statsData = await getStats();
-        setStats(statsData);
+        if (professorsError) throw professorsError;
+        setProfessors(profs ?? []);
+        // Estatísticas agregadas não impedem avaliações.
+        try { setStats(await getStats()); }
+        catch (statsError) { console.error('Erro ao carregar estatísticas:', statsError); }
       } catch (error) {
-        console.error('Erro ao carregar dados:', error);
-        // Sem fallback fictício: lista vazia mostra estado honesto na tela de avaliação
+        console.error('Erro ao carregar professores:', error);
+        setLoadError(true);
       } finally {
         setLoading(false);
       }
@@ -63,68 +65,83 @@ export default function FeedbackApp() {
     loadData();
   }, []);
 
-  // Handlers
+  // Mostra sucesso somente após persistência confirmada.
+  const showSubmissionFailure = (view: View, error: unknown) => {
+    console.error('Erro ao registrar resposta:', error);
+    setSubmissionError({ view, message: 'Não foi possível confirmar o envio. Seus dados permanecem nesta tela. Verifique a conexão e tente novamente.' });
+  };
+
   const handleSubmitRating = async () => {
-    if (!selectedProfessor || rating === 0) return;
-    
-    setSubmitted(true);
-    const throttleKey = `rated_${selectedProfessor.id}_${new Date().toISOString().slice(0,10)}`;
+    if (!selectedProfessor || rating < 1 || submitting) return;
+    setSubmissionError(null);
+    const throttleKey = `rated_${selectedProfessor.id}_${new Date().toLocaleDateString('en-CA')}`;
     let alreadyRated = false;
-    try { alreadyRated = !!localStorage.getItem(throttleKey); } catch {}
-    if (alreadyRated) { setTimeout(() => setCurrentView('thanks'), 600); return; }
+    try { alreadyRated = localStorage.getItem(throttleKey) === '1'; } catch {}
+    if (alreadyRated) {
+      setSubmissionError({ view: 'rate', message: 'Você já avaliou este professor hoje neste dispositivo. Sua avaliação anterior foi confirmada.' });
+      return;
+    }
+    setSubmitting(true);
     try {
-      try { localStorage.setItem(throttleKey, '1'); } catch {}
       await submitRating({
         professor_id: selectedProfessor.id,
         rating,
         comment: feedback || undefined,
         user_name: userName || undefined,
       });
+      try { localStorage.setItem(throttleKey, '1'); } catch {}
+      setCurrentView('thanks');
+      getStats().then(setStats).catch(() => {});
     } catch (error) {
-      console.error('Erro ao enviar avaliação:', error);
+      showSubmissionFailure('rate', error);
+    } finally {
+      setSubmitting(false);
     }
-    
-    setTimeout(() => setCurrentView('thanks'), 1500);
   };
 
   const handleSubmitSurvey = async () => {
-    if (!userName || !userPhone) return;
-    
+    if (!userName.trim() || !userPhone.trim() || !acceptTerms || submitting) return;
+    setSubmissionError(null);
+    setSubmitting(true);
     try {
       const npsScore = typeof surveyAnswers[6] === 'number' ? surveyAnswers[6] : undefined;
-      
       await submitSurvey({
-        user_name: userName,
-        user_phone: userPhone,
-        user_email: userEmail || undefined,
+        user_name: userName.trim(),
+        user_phone: userPhone.trim(),
+        user_email: userEmail.trim() || undefined,
         answers: surveyAnswers,
         nps_score: npsScore,
         accept_marketing: acceptTerms,
       });
+      setCurrentView('thanks');
+      getStats().then(setStats).catch(() => {});
     } catch (error) {
-      console.error('Erro ao enviar pesquisa:', error);
+      showSubmissionFailure('survey', error);
+    } finally {
+      setSubmitting(false);
     }
-    
-    setCurrentView('thanks');
   };
 
   const handleSubmitFeedback = async () => {
-    if (!feedback || !selectedCategory) return;
-    
+    if (!feedback.trim() || !selectedCategory || submitting) return;
+    setSubmissionError(null);
+    setSubmitting(true);
     try {
       await submitFeedback({
         type: feedbackType,
         category: selectedCategory,
-        message: feedback,
-        user_name: isAnonymous ? undefined : userName || undefined,
-        user_phone: isAnonymous ? undefined : userPhone || undefined,
+        message: feedback.trim(),
+        user_name: isAnonymous ? undefined : userName.trim() || undefined,
+        user_phone: isAnonymous ? undefined : userPhone.trim() || undefined,
         is_anonymous: isAnonymous,
       });
+      setCurrentView('thanks');
+      getStats().then(setStats).catch(() => {});
     } catch (error) {
-      console.error('Erro ao enviar feedback:', error);
+      showSubmissionFailure('feedback', error);
+    } finally {
+      setSubmitting(false);
     }
-    
-    setCurrentView('thanks');
   };
 
   const resetForm = () => {
@@ -137,7 +154,8 @@ export default function FeedbackApp() {
     setUserPhone('');
     setUserEmail('');
     setIsAnonymous(false);
-    setSubmitted(false);
+    setSubmitting(false);
+    setSubmissionError(null);
     setSurveyAnswers({});
     setAcceptTerms(false);
   };
@@ -305,7 +323,7 @@ export default function FeedbackApp() {
 
       {professors.length === 0 && !loading && (
         <div className="bg-white rounded-2xl p-6 text-center shadow-md">
-          <p className="text-gray-600 font-medium">Estamos preparando a lista de profissionais.</p>
+          <p className="text-gray-600 font-medium">{loadError ? 'Não foi possível consultar os professores agora.' : 'A lista de profissionais está sendo atualizada.'}</p>
           <p className="text-gray-400 text-sm mt-1">Volte em instantes — ou fale com a recepção.</p>
         </div>
       )}
@@ -382,12 +400,12 @@ export default function FeedbackApp() {
           />
           <button
             onClick={handleSubmitRating}
-            disabled={submitted}
+            disabled={submitting}
             className={`w-full py-4 rounded-xl font-bold text-lg text-white shadow-lg transition-all ${
-              submitted ? 'bg-green-500' : 'bg-limit-gradient-light hover:shadow-xl'
+              submitting ? 'bg-gray-400' : 'bg-limit-gradient-light hover:shadow-xl'
             }`}
           >
-            {submitted ? '✓ Avaliação Enviada!' : 'Enviar Avaliação'}
+            {submitting ? 'Enviando avaliação...' : 'Enviar Avaliação'}
           </button>
         </div>
       )}
@@ -539,10 +557,10 @@ export default function FeedbackApp() {
 
         <button
           onClick={handleSubmitSurvey}
-          disabled={!userName || !userPhone || !acceptTerms}
+          disabled={!userName || !userPhone || !acceptTerms || submitting}
           className="w-full py-4 rounded-xl font-bold text-lg text-white shadow-lg transition-all disabled:opacity-50 bg-limit-gradient-light hover:shadow-xl"
         >
-          Enviar e Participar do Sorteio 🎉
+          {submitting ? "Enviando pesquisa..." : "Enviar e Participar do Sorteio 🎉"}
         </button>
       </div>
     );
@@ -631,12 +649,12 @@ export default function FeedbackApp() {
 
       <button
         onClick={handleSubmitFeedback}
-        disabled={!feedback || !selectedCategory}
+        disabled={!feedback || !selectedCategory || submitting}
         className={`w-full py-4 rounded-xl font-bold text-lg text-white shadow-lg transition-all disabled:opacity-50 hover:shadow-xl ${
           feedbackType === 'suggestion' ? 'bg-gold-gradient' : 'bg-gradient-to-r from-red-500 to-orange-500'
         }`}
       >
-        Enviar {feedbackType === 'suggestion' ? 'Sugestão' : 'Reclamação'}
+        {submitting ? 'Enviando...' : <>Enviar {feedbackType === 'suggestion' ? 'Sugestão' : 'Reclamação'}</>}
       </button>
     </div>
   );
@@ -729,6 +747,12 @@ export default function FeedbackApp() {
               </div>
               <p className="text-gray-400 text-xs">Curvelo-MG</p>
             </div>
+          </div>
+        )}
+
+        {submissionError && submissionError.view === currentView && (
+          <div role="alert" className="mb-5 rounded-xl border-2 border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-800">
+            {submissionError.message}
           </div>
         )}
 
