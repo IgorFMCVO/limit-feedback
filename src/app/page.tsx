@@ -74,7 +74,7 @@ export default function FeedbackApp() {
   const handleSubmitRating = async () => {
     if (!selectedProfessor || rating < 1 || submitting) return;
     setSubmissionError(null);
-    const throttleKey = `rated_${selectedProfessor.id}_${new Date().toLocaleDateString('en-CA')}`;
+    const throttleKey = `rated_confirmed_v2_${selectedProfessor.id}_${new Date().toLocaleDateString('en-CA')}`;
     let alreadyRated = false;
     try { alreadyRated = localStorage.getItem(throttleKey) === '1'; } catch {}
     if (alreadyRated) {
