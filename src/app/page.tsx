@@ -330,7 +330,7 @@ export default function FeedbackApp() {
 
       <div className="space-y-3">
         <label className="text-gray-600 text-sm font-semibold">Quem você deseja avaliar?</label>
-        <div className="space-y-2 max-h-72 overflow-y-auto">
+        <div className="space-y-2">
           {professors.map((prof) => (
             <button
               key={prof.id}
