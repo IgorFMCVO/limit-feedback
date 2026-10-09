@@ -27,8 +27,7 @@ export async function submitRating(rating: {
 }) {
   const { data, error } = await supabase
     .from('ratings')
-    .insert([rating])
-    .select();
+    .insert([rating]);
   
   if (error) throw error;
   // Média do professor recalculada por trigger no banco (setup_supabase.sql)
@@ -46,8 +45,7 @@ export async function submitSurvey(survey: {
 }) {
   const { data, error } = await supabase
     .from('survey_responses')
-    .insert([survey])
-    .select();
+    .insert([survey]);
   
   if (error) throw error;
   return data;
@@ -67,8 +65,7 @@ export async function submitFeedback(feedback: {
     .insert([{
       ...feedback,
       status: 'pending'
-    }])
-    .select();
+    }]);
   
   if (error) throw error;
   return data;
